@@ -1,8 +1,11 @@
 Ext.onReady(function () {
 
 	var items = new Array();
-	
-	
+	var days = new Array();
+	days.push(new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array());
+	var hourAxis = new Array("0000","0100","0200","0300","0400","0500","0600","0700","0800","0900",
+		"1000","1100","1200","1300","1400","1500","1600","1700","1800","1900","2000","2100","2200","2300");
+	var dayAxis = new Array("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday");
 
     Ext.Ajax.request({
         url: '../test/test.php',
@@ -47,25 +50,20 @@ Ext.onReady(function () {
 	        	        xtype: 'chart',
 	        	        animate: true,
 	        	        title: time,
-	        	        width: 300,
-	        	        height: 200,
+	        	        width: 150,
+	        	        height: 100,
 	        	        store: store,
 	        	        shadow: true,
 	        	        items:[{
         	        	      type  : 'text',
         	        	      text  : date.toDateString() + ' ' + date.getHours(),
-        	        	      font  : '14px Arial',
-        	        	      width : 100,
+        	        	      font  : '10px Arial',
+        	        	      width : 150,
         	        	      height: 30,
         	        	      x : 50,
         	        	      y : 10 
-	                    }],
-	        	        legend: {
-	        	            position: 'right',
-	        	            itemSpacing: 5,
-	        	            labelFont: '10px Helvetica, sans-serif'
-	        	        },
-	        	        insetPadding: 30,
+	                    	}],
+	        	        insetPadding: 10,
 	        	        theme: 'Base:gradients',
 	        	        series: [{
 	        	            type: 'pie',
@@ -93,7 +91,7 @@ Ext.onReady(function () {
 	        	            },
 	        	            highlight: {
 	        	              segment: {
-	        	                margin: 20
+	        	                margin: 10
 	        	              }
 	        	            }
 	        	        }]
@@ -103,11 +101,8 @@ Ext.onReady(function () {
             }
             
             var panel = Ext.create('widget.panel', {
-        	    width: 1200,
-        	    height: 1000,
         	    autoScroll: 'auto',
         	    title: 'Twitter Life Patterns',
-        	    renderTo: Ext.getBody(),
         	    tbar: [{
         	        text: 'Save Chart',
         	        handler: function() {
@@ -130,6 +125,11 @@ Ext.onReady(function () {
         	    }],
         	    items: items
         	});
+        	
+        var viewport = Ext.create('Ext.container.Viewport', {
+	    layout: 'fit',
+	    items:  [panel]
+	});	
         } 
     });	
 });
